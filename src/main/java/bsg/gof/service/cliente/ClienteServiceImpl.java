@@ -9,6 +9,8 @@ import bsg.gof.service.endereco.EnderecoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ClienteServiceImpl implements ClienteService {
@@ -23,6 +25,14 @@ public class ClienteServiceImpl implements ClienteService {
         var endereco = enderecoService.cadastrarEndereco(request.getEndereco());
         var inserted = clienteRepository.save(clienteFactory.criarEntity(request.getNome(), endereco));
         return clienteMapper.toClienteDto(inserted);
+    }
+
+    @Override
+    public List<ClienteDto> buscarClientes() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(clienteMapper::toClienteDto)
+                .toList();
     }
 
 }
