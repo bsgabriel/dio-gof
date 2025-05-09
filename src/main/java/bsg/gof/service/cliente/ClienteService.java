@@ -12,4 +12,6 @@ public interface ClienteService {
     List<ClienteDto> buscarClientes();
 
     ClienteDto buscarCliente(Long cliented);
+
+    void deletarCliente(Long clienteId);
 }

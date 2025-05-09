@@ -31,4 +31,10 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.inserir(cliente));
     }
 
+    @DeleteMapping("/{clienteId}")
+    public ResponseEntity<Void> deletarCliente(@PathVariable("clienteId") Long clienteId) {
+        this.clienteService.deletarCliente(clienteId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

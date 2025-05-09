@@ -42,4 +42,15 @@ public class ClienteServiceImpl implements ClienteService {
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
 
+    @Override
+    public void deletarCliente(Long clienteId) {
+        boolean exists = this.clienteRepository.existsById(clienteId);
+        if (!exists) {
+            throw new RuntimeException("Cliente não encotrado");
+        }
+
+        clienteRepository.deleteById(clienteId);
+
+    }
+
 }
