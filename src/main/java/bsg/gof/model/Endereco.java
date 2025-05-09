@@ -20,7 +20,7 @@ public class Endereco {
     private Long enderecoId;
 
     @ManyToOne
-    @JoinColumn(name = "cep", referencedColumnName = "cep")
+    @JoinColumn(name = "cep")
     private InfoCep infoCep;
 
     private String complemento;
