@@ -35,4 +35,11 @@ public class ClienteServiceImpl implements ClienteService {
                 .toList();
     }
 
+    @Override
+    public ClienteDto buscarCliente(Long cliented) {
+        return this.clienteRepository.findById(cliented)
+                .map(clienteMapper::toClienteDto)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    }
+
 }

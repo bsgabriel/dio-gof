@@ -10,4 +10,6 @@ public interface ClienteService {
     ClienteDto inserir(ClienteRequestDto cliente);
 
     List<ClienteDto> buscarClientes();
+
+    ClienteDto buscarCliente(Long cliented);
 }

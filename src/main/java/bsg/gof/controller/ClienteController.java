@@ -21,6 +21,11 @@ public class ClienteController {
         return ResponseEntity.ok(this.clienteService.buscarClientes());
     }
 
+    @GetMapping("/{clienteId}")
+    public ResponseEntity<ClienteDto> buscarCliente(@PathVariable("clienteId") Long cliented) {
+        return ResponseEntity.ok(this.clienteService.buscarCliente(cliented));
+    }
+
     @PostMapping
     public ResponseEntity<ClienteDto> inserir(@RequestBody ClienteRequestDto cliente) {
         return ResponseEntity.ok(clienteService.inserir(cliente));
