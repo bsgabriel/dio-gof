@@ -6,4 +6,6 @@ import bsg.gof.model.Endereco;
 public interface EnderecoService {
 
     Endereco cadastrarEndereco(EnderecoClienteRequestDto enderecoRequest);
+
+    Endereco atualizarEndereco(Long enderecoId, EnderecoClienteRequestDto dto);
 }

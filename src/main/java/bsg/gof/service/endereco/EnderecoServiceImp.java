@@ -22,4 +22,13 @@ public class EnderecoServiceImp implements EnderecoService {
         var endereco = enderecoFactory.montarEntidade(enderecoRequest, infoCep);
         return enderecoRepository.save(endereco);
     }
+
+    @Override
+    public Endereco atualizarEndereco(Long enderecoId, EnderecoClienteRequestDto dto) {
+        var infoCep = infoCepService.buscarDadosCep(dto.getCep());
+        var endereco = enderecoFactory.montarEntidade(dto, infoCep);
+        endereco.setEnderecoId(enderecoId);
+        return this.enderecoRepository.save(endereco);
+    }
+
 }
