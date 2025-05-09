@@ -14,4 +14,6 @@ public interface ClienteService {
     ClienteDto buscarCliente(Long cliented);
 
     void deletarCliente(Long clienteId);
+
+    ClienteDto atualizarCliente(Long clienteId, ClienteRequestDto clienteRequestDto);
 }

@@ -37,4 +37,10 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{clienteId}")
+    public ResponseEntity<ClienteDto> atualizarCliente(@PathVariable("clienteId") Long clienteId,
+                                                       @RequestBody ClienteRequestDto clienteRequestDto) {
+        return ResponseEntity.ok(this.clienteService.atualizarCliente(clienteId, clienteRequestDto));
+    }
+
 }

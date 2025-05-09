@@ -3,9 +3,11 @@ package bsg.gof.service.cliente;
 import bsg.gof.dto.ClienteDto;
 import bsg.gof.dto.ClienteRequestDto;
 import bsg.gof.factory.ClienteFactory;
+import bsg.gof.factory.EnderecoFactory;
 import bsg.gof.mapper.ClienteMapper;
 import bsg.gof.repository.ClienteRepository;
 import bsg.gof.service.endereco.EnderecoService;
+import bsg.gof.service.infocep.InfoCepService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,9 @@ import java.util.List;
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteMapper clienteMapper;
+    private final InfoCepService infoCepService;
     private final ClienteFactory clienteFactory;
+    private final EnderecoFactory enderecoFactory;
     private final EnderecoService enderecoService;
     private final ClienteRepository clienteRepository;
 
@@ -52,5 +56,23 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository.deleteById(clienteId);
 
     }
+
+    @Override
+    public ClienteDto atualizarCliente(Long clienteId, ClienteRequestDto clienteRequestDto) {
+        var clienteCadastado = this.clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        var infoCep = this.infoCepService.buscarDadosCep(clienteRequestDto.getEndereco().getCep());
+
+        var novoEndereco = this.enderecoFactory.montarEntidade(clienteRequestDto.getEndereco(), infoCep);
+        novoEndereco.setEnderecoId(clienteCadastado.getEndereco().getEnderecoId());
+
+        clienteCadastado.setNome(clienteRequestDto.getNome());
+        clienteCadastado.setEndereco(novoEndereco);
+
+        clienteCadastado = this.clienteRepository.save(clienteCadastado);
+        return clienteMapper.toClienteDto(clienteCadastado);
+    }
+
 
 }
