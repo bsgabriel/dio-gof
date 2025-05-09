@@ -15,6 +15,7 @@ public class CepMapper {
                 .rua(infoCep.getRua())
                 .bairro(infoCep.getBairro())
                 .cidade(infoCep.getCidade())
+                .estado(infoCep.getEstado())
                 .siglaEstado(infoCep.getSiglaEstado())
                 .build();
     }
